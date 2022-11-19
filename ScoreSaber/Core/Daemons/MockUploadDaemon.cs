@@ -104,7 +104,8 @@ namespace ScoreSaber.Core.Daemons {
             byte[] serializedReplay = await _replayService.WriteSerializedReplay();
 
             if (Plugin.Settings.saveLocalReplays) {
-                string replayPath = $@"{Settings.replayPath}\{_playerService.localPlayerInfo.playerId}-{beatmap.level.songName.ReplaceInvalidChars().Truncate(155)}-{beatmap.difficulty.SerializedName()}-{beatmap.parentDifficultyBeatmapSet.beatmapCharacteristic.serializedName}-{beatmap.level.levelID}.dat";
+                string replayPath = $@"{Settings.replayPath}\{_playerService.localPlayerInfo.playerId}-{beatmap.level.songName.ReplaceInvalidChars().Truncate(155)}-{beatmap.difficulty.SerializedName()}-{beatmap.parentDifficultyBeatmapSet.beatmapCharacteristic.serializedName}-{beatmap.level.levelID.Split('_')[2]}.dat";
+
                 File.WriteAllBytes(replayPath, serializedReplay);
             }
             uploading = false;
